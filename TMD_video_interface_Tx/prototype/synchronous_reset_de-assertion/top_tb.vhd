@@ -36,7 +36,7 @@ architecture sim of top_tb is
   signal i_rst_n : std_logic := '0';
   signal o_pclk : std_logic;
   signal o_pclk_x10 : std_logic;
-  signal o_locked_sync : std_logic;
+  signal o_rst_n : std_logic;
 
 begin
 
@@ -46,7 +46,7 @@ begin
     i_rst_n => i_rst_n,
     o_pclk => o_pclk,
     o_pclk_x10 => o_pclk_x10,
-    o_locked_sync => o_locked_sync
+    o_rst_n => o_rst_n
     );
     
   CLK_PROC : process 
