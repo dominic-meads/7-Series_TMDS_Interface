@@ -31,6 +31,7 @@ use IEEE.NUMERIC_STD.all;
 entity synchronous_reset_release is
   Port ( 
     i_locked : in STD_LOGIC;
+    i_rst_n : in STD_LOGIC;
     i_pclk : in STD_LOGIC;
     o_rst_n : out STD_LOGIC
   );
@@ -40,6 +41,12 @@ architecture rtl of synchronous_reset_release is
 
   signal w_DFF1_to_DFF2 : STD_LOGIC;
   signal w_locked_sync : STD_LOGIC;
+  signal w_clk_counter : STD_LOGIC_VECTOR(1 downto 0);
+  signal r_rst_n : STD_LOGIC := '0';
+  
+  type t_state is (WAITING_STATE, DELAY_STATE, RELEASE_STATE);
+  signal STATE : t_state;
+ 
 
 begin
 
@@ -50,12 +57,60 @@ begin
     Q => w_DFF1_to_DFF2
     );
     
+    
   DFF2 : entity work.DFF(rtl)
   port map(
     clk => i_pclk,
     D => w_DFF1_to_DFF2,
     Q => w_locked_sync
     );
+    
+    
+  clk_counter1 : entity work.clk_counter(rtl)
+  generic map(
+    g_delay_clk_cycles => 5,
+    g_counter_width => 2
+    )
+  port map(
+    i_en => w_locked_sync,
+    i_pclk => i_pclk,
+    o_clk_counter => w_clk_counter
+    );
+    
+    
+  STATE_MACHINE_PROC : process(i_pclk)
+  begin 
+    if rising_edge(i_pclk) then 
+      if i_rst_n = '0' then 
+        r_rst_n <= '0';
+        STATE <= WAITING_STATE;
+      else 
+        case STATE is 
+          when WAITING_STATE => 
+            r_rst_n <= '0';
+            if w_locked_sync = '1' then 
+              STATE <= DELAY_STATE;
+            else 
+              STATE <= WAITING_STATE;
+            end if;
+            
+          when DELAY_STATE =>
+            r_rst_n <= '0';
+            if w_clk_counter = "11" then 
+              STATE <= RELEASE_STATE;
+            else 
+              STATE <= DELAY_STATE;
+            end if;
+            
+          when RELEASE_STATE =>
+            r_rst_n <= '1';
+            
+        end case;
+      end if;
+    end if;  
+  end process;
+  
+  o_rst_n <= r_rst_n;
 
 end rtl;
 
