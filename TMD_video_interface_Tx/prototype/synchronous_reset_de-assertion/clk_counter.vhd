@@ -47,7 +47,7 @@ begin
     
     if rising_edge(i_pclk) then 
       if i_en = '1' then 
-        if r_clk_counter < g_delay_clk_cycles-1 then 
+        if r_clk_counter < g_delay_clk_cycles - 2 then 
           r_clk_counter <= r_clk_counter + 1;
         
         else 
