@@ -20,25 +20,25 @@
 ----------------------------------------------------------------------------------
 
 
-library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
-use IEEE.NUMERIC_STD.ALL;
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
 
 entity delay_cntr is
     generic (
-      g_delay_cycles : INTEGER := 10;  -- default 10 pclk cycle delay (400 ns)
-      g_cntr_width : INTEGER := 4  -- 4 bits encodes > 10 values
+      g_delay_cycles : integer := 10;  -- default 10 pclk cycle delay (400 ns)
+      g_cntr_width : integer := 4  -- 4 bits encodes >= 10 values
       );
     port ( 
-      i_en : in STD_LOGIC;  -- counter enable
-      i_pclk : in STD_LOGIC;
-      o_delay_cntr : out STD_LOGIC_VECTOR (g_cntr_width-1 downto 0)
+      i_en : in std_logic;  -- counter enable
+      i_pclk : in std_logic; 
+      o_delay_cntr : out std_logic_vector(g_cntr_width-1 downto 0)
       );
 end delay_cntr;
 
 architecture rtl of delay_cntr is
 
-  signal r_delay_cntr : UNSIGNED(g_cntr_width-1 downto 0) := (others => '0');
+  signal r_delay_cntr : unsigned(g_cntr_width-1 downto 0) := (others => '0');
  
 begin
 
@@ -57,6 +57,6 @@ begin
     end if;
   end process;
   
-  o_delay_cntr <= STD_LOGIC_VECTOR(r_delay_cntr);
+  o_delay_cntr <= std_logic_vector(r_delay_cntr);
 
 end rtl;
