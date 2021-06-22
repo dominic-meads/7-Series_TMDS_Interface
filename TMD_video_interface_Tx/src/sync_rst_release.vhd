@@ -27,27 +27,27 @@
 
 
 
-library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
+library ieee;
+use ieee.std_logic_1164.ALL;
 library UNISIM;
 use UNISIM.VComponents.all;
 
 
 entity synch_rst_release is
   Port ( 
-    i_locked : in STD_LOGIC;
-    i_rst_n : in STD_LOGIC;
-    i_pclk : in STD_LOGIC;
-    o_rst_n : out STD_LOGIC
+    i_locked : in std_logic;
+    i_rst_n : in std_logic;
+    i_pclk : in std_logic;
+    o_rst_n : out std_logic
   );
 end synch_rst_release;
 
 architecture rtl of synch_rst_release is
 
-  signal w_DFF1_to_DFF2 : STD_LOGIC;
-  signal w_locked_sync : STD_LOGIC;
-  signal w_delay_cntr : STD_LOGIC_VECTOR(3 downto 0);
-  signal r_rst_n : STD_LOGIC := '0';
+  signal w_DFF1_to_DFF2 : std_logic;
+  signal w_locked_sync : std_logic;
+  signal w_delay_cntr : std_logic_vector(3 downto 0);
+  signal r_rst_n : std_logic := '0';
   
   type t_state is (WAITING_STATE, DELAY_STATE, RELEASE_STATE);
   signal STATE : t_state;
@@ -120,4 +120,3 @@ begin
   o_rst_n <= r_rst_n;
 
 end rtl;
-
