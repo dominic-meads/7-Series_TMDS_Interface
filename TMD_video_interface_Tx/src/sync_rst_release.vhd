@@ -40,7 +40,7 @@ entity sync_rst_release is
     i_pclk : in std_logic;
     o_rst_sync : out std_logic
   );
-end synch_rst_release;
+end sync_rst_release;
 
 architecture rtl of sync_rst_release is
 
