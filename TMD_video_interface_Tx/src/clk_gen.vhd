@@ -50,20 +50,20 @@ begin
   PLLE2_BASE_inst : PLLE2_BASE
   generic map (
     BANDWIDTH => "OPTIMIZED",  
-    CLKFBOUT_MULT => 2,        
+    CLKFBOUT_MULT => 8,        
     CLKFBOUT_PHASE => 0.0,     
     CLKIN1_PERIOD => 8.0,      
-    CLKOUT0_DIVIDE => 10,
-    CLKOUT1_DIVIDE => 1,
-    CLKOUT2_DIVIDE => 1,
+    CLKOUT0_DIVIDE => 40,
+    CLKOUT1_DIVIDE => 20,
+    CLKOUT2_DIVIDE => 4,
     CLKOUT0_DUTY_CYCLE => 0.5,
     CLKOUT1_DUTY_CYCLE => 0.5,
-    CLKOUT2_DUTY_CYCLE
+    CLKOUT2_DUTY_CYCLE => 0.5,
     CLKOUT0_PHASE => 0.0,
     CLKOUT1_PHASE => 0.0,
-    CLKOUT2_PHASE =>
+    CLKOUT2_PHASE => 0.0,
     DIVCLK_DIVIDE => 1,       
-    REF_JITTER1 => 0.0,        
+    REF_JITTER1 => 0.010,        
     STARTUP_WAIT => "FALSE"    
   )
   port map (
