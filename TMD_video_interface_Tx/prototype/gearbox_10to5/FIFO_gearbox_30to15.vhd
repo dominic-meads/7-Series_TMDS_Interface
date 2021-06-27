@@ -79,7 +79,7 @@ begin
       ALMOST_EMPTY_OFFSET => X"0080", 
       DATA_WIDTH => 30,   
       FIFO_SIZE => "18Kb",            
-      FIRST_WORD_FALL_THROUGH => FALSE) 
+      FIRST_WORD_FALL_THROUGH => TRUE) 
    port map (
       ALMOSTEMPTY => open,   -- shallow FIFO so not using these flags
       ALMOSTFULL => open,     
