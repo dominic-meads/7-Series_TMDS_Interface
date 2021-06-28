@@ -111,12 +111,12 @@ begin
   -- Write domain of FIFO
   WR_STATE_MACHINE_PROC : process(i_pclk, i_rst)
   begin
-    if rising_edge(i_pclk) then 
-      if i_rst = '1' then 
-        r_wr_en <= '0';
-        r_wr_clk_cntr_en <= '0';
-        WR_STATE <= RST_WR;
-      else 
+    if i_rst = '1' then 
+      r_wr_en <= '0';
+      r_wr_clk_cntr_en <= '0';
+      WR_STATE <= RST_WR;
+    else 
+      if rising_edge(i_pclk) then 
         case WR_STATE is 
           when RST_WR => 
             if i_rst = '1' then 
@@ -177,12 +177,12 @@ begin
   -- Read domain of FIFO
   RD_STATE_MACHINE_PROC : process(i_pclk_x2, i_rst)
   begin
-    if rising_edge(i_pclk_x2) then 
-      if i_rst = '1' then 
-        r_rd_en <= '0';
-        r_rd_clk_cntr_en <= '0';
-        RD_STATE <= RST_RD;
-      else 
+    if i_rst = '1' then 
+      r_rd_en <= '0';
+      r_rd_clk_cntr_en <= '0';
+      RD_STATE <= RST_RD;
+    else 
+      if rising_edge(i_pclk_x2) then
         case RD_STATE is 
           when RST_RD => 
             if i_rst = '1' then 
@@ -290,7 +290,6 @@ begin
   o_data <= r_data_out;
 
 end rtl;
-
 
 
 
